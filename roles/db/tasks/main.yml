@@ -1,0 +1,30 @@
+
+---
+- name: Install MySQL
+  apt:
+    name: mysql-server
+    state: present
+
+- name: Ensure MySQL is started
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Create database
+  mysql_db:
+    name: petclinic
+    state: present
+
+- name: Create database user
+  mysql_user:
+    name: petuser
+    password: "petpass"
+    host: "%"
+    priv: "petclinic.*:ALL"
+    state: present
+
+- name: Install python mysql lib
+  apt:
+    name: python3-pymysql
+    state: present
