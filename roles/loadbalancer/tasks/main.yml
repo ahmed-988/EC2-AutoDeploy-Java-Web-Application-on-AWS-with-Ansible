@@ -1,0 +1,25 @@
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Configure Nginx as a load balancer
+  copy:
+    dest: /etc/nginx/sites-available/springapp
+    content: |
+      server {
+        listen 80;
+
+        location / {
+            proxy_pass http://10.0.1.10:8080/spring-petclinic-3.1.0-SNAPSHOT/;
+        }
+      }
+
+- name: Enable site
+  command: ln -sf /etc/nginx/sites-available/springapp /etc/nginx/sites-enabled/
+
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted
