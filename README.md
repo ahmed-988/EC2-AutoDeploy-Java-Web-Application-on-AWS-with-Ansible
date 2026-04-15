@@ -1,17 +1,15 @@
-[Untitled Diagram.drawio](https://github.com/user-attachments/files/26736371/Untitled.Diagram.drawio)![automated](https://github.com/user-attachments/assets/32eabdc2-4da2-4a92-bed5-c64271120906)# 🚀 Multi-Tier Java Application Deployment on AWS using Ansible
+🚀 Multi-Tier Java Application Deployment on AWS using Ansible
 
-## 📌 Project Overview[Untitled Diagram.drawio](https://github.com/user-attachments/files/26736309/Untitled.Diagram.drawio)
+[Untitled Diagram.drawio](https://github.com/user-attachments/files/26736445/Untitled.Diagram.drawio)
 
+
+## 📌 Project Overview
 
 This project demonstrates deploying a **multi-tier Java web application** on AWS using manual infrastructure (AWS Console) setup and Ansible automation.
 
 The architecture follows a real-world production-like design with separate layers for application, database, caching, messaging, and load balancing.
 
 ---
-
-## 🏗️ Architecture Diagram
-
-
 
 ---
 
