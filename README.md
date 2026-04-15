@@ -11,7 +11,6 @@ The architecture follows a real-world production-like design with separate layer
 
 ## 🏗️ Architecture Diagram
 
-[Untitled Diagram.drawio](https://github.com/user-attachments/files/26736385/Untitled.Diagram.drawio)
 
 
 ---
