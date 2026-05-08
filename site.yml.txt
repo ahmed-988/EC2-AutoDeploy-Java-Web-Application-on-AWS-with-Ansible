@@ -1,0 +1,20 @@
+---
+- hosts: app
+  roles:
+    - app
+
+- hosts: db
+  roles:
+    - db
+
+- hosts: memcache
+  roles:
+    - memcache
+
+- hosts: rabbitmq
+  roles:
+    - rabbitmq
+
+- hosts: loadbalancer
+  roles:
+    - loadbalancer
