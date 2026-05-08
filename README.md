@@ -62,13 +62,6 @@ The architecture follows a real-world production-like design with separate layer
 | LoadBalancer | 10.0.5.10  |
 | Control Node | 10.0.1.100 |
 
-## 📌 Project Overview
-
-* **Terraform**: Used to provision AWS infrastructure, including creating EC2 instances and handling initial setup such as copying required application files to the server.
-
-* **Ansible**: Used for configuration management and application deployment. It installs Web App on the EC2 instance , and runs the application.
-
-
 
 
 ## 🎯 Key Learnings
