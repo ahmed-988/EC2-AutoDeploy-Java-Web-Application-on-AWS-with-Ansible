@@ -3,73 +3,159 @@
 <img width="756" height="547" alt="zzzzzzzz drawio" src="https://github.com/user-attachments/assets/0180d375-a0d6-4e39-95f9-9bb24263c89e" />
 
 
-## 📌 Project Overview
 
-This project demonstrates deploying a **multi-tier Java web application** on AWS using manual infrastructure (AWS Console) setup and Ansible automation.
+### 🛠️ Project Overview
 
-The architecture follows a real-world production-like design with separate layers for application, database, caching, messaging, and load balancing.
+The main objective of this project is to deploy a **Multi-Tier Java Web Application on AWS** using **Ansible Roles**.
 
----
-
----
-
-## ☁️ AWS Infrastructure
-
-### 🔹 VPC
-
-* CIDR: `10.0.0.0/16`
-
-### 🔹 Subnets
-
-| Layer        | CIDR        |
-| ------------ | ----------- |
-| App          | 10.0.1.0/24 |
-| DB           | 10.0.2.0/24 |
-| Memcache     | 10.0.3.0/24 |
-| RabbitMQ     | 10.0.4.0/24 |
-| LoadBalancer | 10.0.5.0/24 |
-
-### 🔹 Networking
-
-* Internet Gateway attached to VPC
-* Route Table:
-
-  * Public Subnets: App, LoadBalancer
-  * Private Subnets: DB, Memcache, RabbitMQ
+The infrastructure consists of multiple EC2 instances, where each server is responsible for a specific service. Ansible is used to automate the installation, configuration, and deployment of the application across all managed nodes. 
 
 ---
+
+### ☁️ AWS Infrastructure
+
+* **VPC:** `10.0.0.0/16`
+* **App Subnet:** `10.0.1.0/24`
+* **DB Subnet:** `10.0.2.0/24`
+* **Memcache Subnet:** `10.0.3.0/24`
+* **RabbitMQ Subnet:** `10.0.4.0/24`
+* **Load Balancer Subnet:** `10.0.5.0/24`
+* **Internet Gateway**
+* **Route Table**
+* **Security Groups**
+* **6 EC2 Instances** including the Ansible Control Node.
 
 ## 🔐 Security Groups
 
-| Security Group | Rules                           |
-| -------------- | ------------------------------- |
-| app-sg         | 8080 from lb-sg, SSH from my IP |
-| db-sg          | 3306 from app-sg                |
-| memcache-sg    | 11211 from app-sg               |
-| rabbit-sg      | 5672 from app-sg                |
-| lb-sg          | 80 from anywhere                |
+The project uses separate Security Groups for each service:
+
+| Server        |  Port | Purpose   |
+| ------------- | ----: | --------- |
+| App           |    22 | SSH       |
+| App           |  8080 | Tomcat    |
+| DB            |  3306 | MySQL     |
+| Memcache      | 11211 | Memcached |
+| RabbitMQ      |  5672 | RabbitMQ  |
+| Load Balancer |    80 | HTTP      |
+
+Service-to-service access is controlled through Security Groups, for example the DB, Memcached, and RabbitMQ ports allow traffic from the App Server Security Group. 
+
 
 ---
 
-## 🖥️ EC2 Instances
+## 📋 Features
 
-| Role         | Private IP |
-| ------------ | ---------- |
-| App          | 10.0.1.10  |
-| DB           | 10.0.2.10  |
-| Memcache     | 10.0.3.10  |
-| RabbitMQ     | 10.0.4.10  |
-| LoadBalancer | 10.0.5.10  |
-| Control Node | 10.0.1.100 |
+### 🔹 Ansible Automation
+
+Ansible is used from the **Control Node** to configure all managed EC2 instances using **SSH key-based authentication**. 
+
+### 🔹 Ansible Roles
+
+The project is divided into five reusable roles:
+
+```text
+roles/
+├── app/
+├── db/
+├── memcache/
+├── rabbitmq/
+└── loadbalancer/
+```
+Each role is responsible for configuring a specific server. 
+
+### 🔹 Application Server
+### 🔹 Database Server
+### 🔹 Memcached Server
+### 🔹 RabbitMQ Server
+### 🔹 Nginx Load Balancer
+---
+
+## 🚀 How It Works
+
+```text
+User
+  │
+  ▼
+Nginx Load Balancer :80
+  │
+  ▼
+Tomcat App Server :8080
+  │
+  ├──► MySQL :3306
+  │
+  ├──► Memcached :11211
+  │
+  └──► RabbitMQ :5672
+```
+
+The deployment process is automated using:
+
+```text
+Control Node
+     │
+     ▼
+   Ansible
+     │
+     ├──► App Role
+     ├──► DB Role
+     ├──► Memcache Role
+     ├──► RabbitMQ Role
+     └──► Load Balancer Role
+```
+
+The complete deployment is executed through the Ansible Playbook:
+
+```bash
+ansible-playbook -i inventory.ini site.yml
+```
 
 
+---
 
-## 🎯 Key Learnings
+## 🧪 Testing
 
-* AWS Networking (VPC, Subnets, IGW)
-* Security Groups Design
-* Multi-Tier Architecture
-* Infrastructure Automation using Ansible
-* Deploying Java Applications
+After deployment, connectivity between the application and backend services is tested.
+
+---
+
+## 🧠 Key Benefits
+
+* **Automation** — Server configuration and application deployment are automated using Ansible.
+* **Reusability** — Ansible Roles can be reused across different projects.
+* **Modularity** — Each service has its own dedicated role.
+* **Consistency** — The same configuration can be applied across multiple servers.
+* **Multi-Tier Architecture** — Application, database, caching, messaging, and load-balancing layers are separated.
+* **Centralized Management** — All managed nodes are controlled from the Ansible Control Node.
+
+The project structure is organized into separate roles for each service. 
+
+---
+
+## 📊 Final Result
+
+✅ AWS VPC and networking infrastructure created
+✅ 5 service EC2 instances deployed
+✅ Ansible Control Node configured
+✅ Ansible SSH key-based authentication configured
+✅ Five Ansible Roles created
+✅ Java application built using Maven
+✅ Application deployed on Tomcat
+✅ MySQL database configured
+✅ Memcached configured
+✅ RabbitMQ configured
+✅ Nginx configured as Load Balancer
+✅ Connectivity between application and backend services tested
+
+---
+
+## 🛠️ Technologies
+
+**AWS** • **EC2** • **VPC** • **Subnet** • **Internet Gateway** • **Route Table** • **Security Groups** • **Ansible** • **Ansible Roles** • **Nginx** • **Tomcat** • **Java** • **Maven** • **MySQL** • **Memcached** • **RabbitMQ** • **Git** • **Ubuntu** • **SSH**
+
+---
+
+## 👨‍💻 Author
+
+**Ahmed Anany**
 
 
