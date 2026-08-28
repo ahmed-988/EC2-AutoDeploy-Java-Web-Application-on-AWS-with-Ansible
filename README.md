@@ -1,6 +1,7 @@
 🚀 Multi-Tier Java Application Deployment on AWS using Ansible
 
-<img width="851" height="591" alt="Untitled Diagram drawio (2)" src="https://github.com/user-attachments/assets/b7e03368-a573-4b42-8454-4ba46e2a4ab8" />
+<img width="851" height="591" alt="Untitled Diagram drawio (3)" src="https://github.com/user-attachments/assets/7c6dffc2-f97e-4c99-8e03-38b05e0b972a" />
+
 
 
 
